@@ -1,0 +1,25 @@
+[project]
+name = "valkyrja-template-ci-pytest"
+version = "0.0.0"
+requires-python = ">=3.14"
+dependencies = ["pytest>=9.1.1,<10", "pytest-cov>=7.1.0,<8", "coverage>=7.15.2,<8"]
+
+[tool.uv]
+# Environment-only project: install the tools, never build this directory.
+package = false
+
+# Paths are relative to this config file's directory (the pytest rootdir when
+# invoked with `-c`), hence the `../../../` back to the repo root.
+[tool.pytest.ini_options]
+testpaths = ["../../../tests"]
+pythonpath = ["../../../src"]
+python_files = ["test_*.py"]
+addopts = "--import-mode=importlib --strict-markers"
+
+[tool.coverage.run]
+branch = true
+source = ["valkyrja.template"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100

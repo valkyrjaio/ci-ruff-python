@@ -1,0 +1,23 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-dependencies:
+    uses: valkyrjaio/.github/.github/workflows/_python-update-dependencies.yml@c56ebc8606ffb9031fd45aec671f7ad5324e86db
+    secrets:
+      VALKYRJA_GHA_APP_ID: ${{ secrets.VALKYRJA_GHA_APP_ID }}
+      VALKYRJA_GHA_PRIVATE_KEY: ${{ secrets.VALKYRJA_GHA_PRIVATE_KEY }}
+    with:
+      dependencies: |
+        [
+          {"name": "Root Packages",  "directory": "."},
+          {"name": "Ruff",           "directory": ".github/ci/ruff"},
+          {"name": "mypy",           "directory": ".github/ci/mypy"},
+          {"name": "Bandit",         "directory": ".github/ci/bandit"},
+          {"name": "import-linter",  "directory": ".github/ci/importlinter"},
+          {"name": "pytest",         "directory": ".github/ci/pytest"}
+        ]

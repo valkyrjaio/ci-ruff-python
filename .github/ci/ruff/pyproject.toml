@@ -1,0 +1,35 @@
+[project]
+name = "valkyrja-template-ci-ruff"
+version = "0.0.0"
+requires-python = ">=3.14"
+dependencies = ["ruff>=0.16.1,<0.17"]
+
+[tool.uv]
+# Environment-only project: install the tool, never build this directory.
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py314"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+# Security ("S") is intentionally left to the dedicated Bandit tool.
+# "CPY001" enforces the license header. It is a preview rule, so preview mode is
+# what makes it run. `explicit-preview-rules` keeps that narrow: a preview rule
+# runs only when it is selected by its own code, so enabling this one does not
+# also enable every preview rule behind the other prefixes.
+select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM", "RUF", "CPY001"]
+preview = true
+explicit-preview-rules = true
+
+[tool.ruff.lint.flake8-copyright]
+# Match the whole header, not the first line alone. The default pattern looks for
+# the word "Copyright" and a year, which this header carries, but it accepts any
+# text around them. A file that names the wrong package, or that keeps an older
+# header body, passes that pattern and fails this one. The header text comes from
+# COPYRIGHT_HEADER.md in the .github repo.
+notice-rgx = "# This file is part of the Project Template package\\.\n#\n# Copyright \\(c\\) 2016-present Melech Mizrachi\n#\n# Released under the MIT License\\. See LICENSE\\.md for details\\."

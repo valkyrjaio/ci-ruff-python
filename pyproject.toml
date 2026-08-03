@@ -1,0 +1,60 @@
+[project]
+name = "valkyrja-template"
+version = "26.0.2"
+description = "A Python package template for the Valkyrja Framework"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.md"]
+authors = [{ name = "Melech Mizrachi", email = "melechmizrachi@gmail.com" }]
+keywords = ["template", "valkyrja"]
+requires-python = ">=3.14"
+# Runtime dependencies belong here once the package needs them, e.g. the
+# framework: dependencies = ["valkyrja>=26"].
+dependencies = []
+
+[project.urls]
+Homepage = "https://valkyrja.io"
+Source = "https://github.com/valkyrjaio/project-template-python"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# PEP 420 implicit namespace package: `src/valkyrja/` has no __init__.py, so every
+# Valkyrja repo contributes into the shared `valkyrja` namespace. hatchling maps
+# `src/valkyrja` -> `valkyrja` in the built wheel.
+[tool.hatch.build.targets.wheel]
+packages = ["src/valkyrja"]
+
+# The task facade. Each CI tool is isolated under .github/ci/<tool>/ with its own
+# pyproject.toml + uv.lock; every task runs that tool from its isolated
+# environment (`uv run -q --project`) against the repo-root `src`/`tests`.
+[dependency-groups]
+dev = ["poethepoet>=0.48.0"]
+
+# `uv run -q` silences uv's own output (venv creation, the harmless inherited
+# VIRTUAL_ENV warning) while passing each tool's output through.
+[tool.poe.tasks]
+ruff-format = "uv run -q --project .github/ci/ruff ruff format --config .github/ci/ruff/pyproject.toml src tests"
+ruff-format-check = "uv run -q --project .github/ci/ruff ruff format --check --config .github/ci/ruff/pyproject.toml src tests"
+ruff = "uv run -q --project .github/ci/ruff ruff check --config .github/ci/ruff/pyproject.toml src tests"
+ruff-fix = "uv run -q --project .github/ci/ruff ruff check --fix --config .github/ci/ruff/pyproject.toml src tests"
+mypy = "uv run -q --project .github/ci/mypy mypy --config-file .github/ci/mypy/pyproject.toml src tests"
+bandit = "uv run -q --project .github/ci/bandit bandit -c .github/ci/bandit/pyproject.toml -r src"
+pytest = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml tests"
+pytest-coverage = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml --cov=valkyrja.template --cov-branch --cov-report=term-missing --cov-fail-under=100 tests"
+
+[tool.poe.tasks.import-linter]
+cmd = "uv run -q --project .github/ci/importlinter lint-imports --config .github/ci/importlinter/pyproject.toml"
+env = { PYTHONPATH = "src" }
+
+[tool.poe.tasks.ci]
+help = "Run the full CI gate (see architecture/python/AGENTS.md)"
+sequence = [
+    { ref = "ruff-format-check" },
+    { ref = "ruff" },
+    { ref = "mypy" },
+    { ref = "import-linter" },
+    { ref = "bandit" },
+    { ref = "pytest-coverage" },
+]

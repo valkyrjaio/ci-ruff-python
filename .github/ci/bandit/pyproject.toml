@@ -1,0 +1,13 @@
+[project]
+name = "valkyrja-template-ci-bandit"
+version = "0.0.0"
+requires-python = ">=3.14"
+dependencies = ["bandit[toml]>=1.9.4,<2"]
+
+[tool.uv]
+# Environment-only project: install the tool, never build this directory.
+package = false
+
+[tool.bandit]
+# `bandit -r src` scans the source tree; tests are excluded from security scans.
+exclude_dirs = ["tests"]

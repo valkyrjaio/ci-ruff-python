@@ -1,0 +1,22 @@
+[project]
+name = "valkyrja-template-ci-importlinter"
+version = "0.0.0"
+requires-python = ">=3.14"
+dependencies = ["import-linter>=2.13,<3"]
+
+[tool.uv]
+# Environment-only project: install the tool, never build this directory.
+package = false
+
+# import-linter enforces module boundaries. The root poe task sets PYTHONPATH=src
+# so `valkyrja.template` is importable. Add layered/independence contracts here as
+# the package grows — the analog of PHP's phparkitect Rules.
+[tool.importlinter]
+root_packages = ["valkyrja.template"]
+
+# Example contract to copy once there are layers to enforce:
+# [[tool.importlinter.contracts]]
+# name = "Contracts must not import implementations"
+# type = "forbidden"
+# source_modules = ["valkyrja.template.contract"]
+# forbidden_modules = ["valkyrja.template.provider"]
