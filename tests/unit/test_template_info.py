@@ -1,8 +1,10 @@
-# This file is part of the Project Template package.
+#
+# This file is part of the Valkyrja Ruff package.
 #
 # Copyright (c) 2016-present Melech Mizrachi
 #
 # Released under the MIT License. See LICENSE.md for details.
+#
 
 """Tests for TemplateInfo.
 
