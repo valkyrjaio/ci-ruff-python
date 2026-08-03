@@ -2,43 +2,73 @@
     <img src="https://raw.githubusercontent.com/valkyrjaio/art/refs/heads/master/long-banner/orange/python.png" width="100%">
 </a></p>
 
-# Project Template (Python)
+# Valkyrja Ruff
 
-A starter template for creating new Python repositories in the Valkyrjaio
-organization.
+Shared Ruff configuration and the copyright header injector for Valkyrja Python
+repositories.
 
-This template ships with the full Valkyrja CI pipeline pre-wired (Ruff, mypy,
-Bandit, import-linter, pytest), a minimal [uv][uv url] setup, and the
-repository conventions used across the rest of the org. Use it as the starting
-point for any new Python package, CI tool config, or integration repo — not for
-end-user applications built on the Valkyrja framework (use
-[`valkyrja-starter-app-python`][starter url] for that).
+Ruff enforces the copyright header through `CPY001`, and it reports a file that
+does not match. It corrects nothing. Every other language in the organization has
+a formatter that writes the header: PHP CS Fixer, Spotless, `goheader`, and the
+ESLint rule all replace a wrong header. Python had no such tool, so a person added
+each header by hand.
+
+This package supplies that tool. `valkyrja-ruff-header` writes the header into
+every Python file, and it replaces a header that names the wrong package.
+
+The header text lives in this package and nowhere else. A repository supplies only
+its own package identifier, which it already declares in
+`.github/ci/copyright-header/config`. `COPYRIGHT_HEADER.md` in the `.github`
+repository maps every repository to its identifier.
 
 <p>
-    <a href="https://pypi.org/project/valkyrja-template/"><img src="https://img.shields.io/pypi/v/valkyrja-template.svg" alt="Latest Version on PyPI"></a>
-    <a href="https://pypi.org/project/valkyrja-template/"><img src="https://img.shields.io/pypi/pyversions/valkyrja-template.svg" alt="Supported Python Version"></a>
-    <a href="https://github.com/valkyrjaio/project-template-python/blob/26.x/LICENSE.md"><img src="https://img.shields.io/github/license/valkyrjaio/project-template-python.svg" alt="License"></a>
-    <a href="https://github.com/valkyrjaio/project-template-python/actions/workflows/ci.yml?query=branch%3A26.x"><img src="https://github.com/valkyrjaio/project-template-python/actions/workflows/ci.yml/badge.svg?branch=26.x" alt="CI Status"></a>
+    <a href="https://pypi.org/project/valkyrja-ruff/"><img src="https://img.shields.io/pypi/v/valkyrja-ruff.svg" alt="Latest Version on PyPI"></a>
+    <a href="https://pypi.org/project/valkyrja-ruff/"><img src="https://img.shields.io/pypi/pyversions/valkyrja-ruff.svg" alt="Supported Python Version"></a>
+    <a href="https://github.com/valkyrjaio/ci-ruff-python/blob/26.x/LICENSE.md"><img src="https://img.shields.io/github/license/valkyrjaio/ci-ruff-python.svg" alt="License"></a>
+    <a href="https://github.com/valkyrjaio/ci-ruff-python/actions/workflows/ci.yml?query=branch%3A26.x"><img src="https://github.com/valkyrjaio/ci-ruff-python/actions/workflows/ci.yml/badge.svg?branch=26.x" alt="CI Status"></a>
 </p>
 
 ## Usage
 
-### Use this template _(recommended)_
+### Write the header into every Python file
 
-This repository is a GitHub template. Click the **Use this template** button
-at the top of the repo to create a new repository in the Valkyrjaio
-organization, pre-populated with the template's structure and CI.
+```bash
+valkyrja-ruff-header
+```
 
-### After Creating Your Repo
+The command reads `src` and `tests` by default. Give it a path to read another
+one. It reads the identifier from `.github/ci/copyright-header/config`, so the
+repository declares its name once.
 
-1. Update `pyproject.toml` with your package's name, description, and metadata
-2. Rename `src/valkyrja/template/` to your component's package and replace its
-   contents with your source code
-3. Update this `README.md` to describe the new package
-4. Configure the required secrets and variables — see
-   [`REPOSITORY_NAMING.md`][repository naming url] for naming guidance and
-   `.github`'s workflow documentation for secret requirements
-5. Verify CI passes on the first commit
+### Report a file that needs the header, and write nothing
+
+```bash
+valkyrja-ruff-header --check
+```
+
+The command reports a failure when a file needs the header, so a gate can run it.
+
+### Options
+
+| Option                | Effect                                                     |
+| --------------------- | ---------------------------------------------------------- |
+| `--check`             | report a file that needs the header, and write nothing     |
+| `--identifier`        | name the package, instead of reading the repository config |
+| `--root`              | name the repository root                                   |
+| `--print-ruff-config` | print the Ruff `--config` override, and write nothing      |
+
+### What the command does not touch
+
+The command puts the header at the top of the file, below a shebang and below a
+PEP 263 coding declaration. A shebang that moves off the first line stops working,
+and a coding declaration that moves below the second line stops being read.
+
+Warning: the command replaces a license header, and it replaces nothing else. A
+tool that replaces the first comment block removes a comment that explains the
+code, and the gate then passes because the file carries a correct header. This
+command reads the leading comment block and requires every marker of a license
+header in it. A file whose first comment explains the code keeps that comment, and
+the header goes above it.
 
 ## What's Included
 
@@ -69,7 +99,7 @@ uv run poe pytest-coverage   # tests + 100% coverage
 
 ## Versioning and Release Process
 
-This template follows [semantic versioning][semantic versioning url] with a
+This package follows [semantic versioning][semantic versioning url] with a
 major release every year, and support for each major version for 2 years
 from the date of release.
 
@@ -87,8 +117,8 @@ fixes are provided for 2 years after the initial release.
 
 ## Contributing
 
-This template is an open-source, community-driven project. Improvements to
-the template itself — refinements to the included CI configuration, uv
+This package is an open-source, community-driven project. Improvements to
+this package itself — refinements to the included CI configuration, uv
 setup, or documentation — are welcome.
 
 See [`CONTRIBUTING.md`][contributing url] for the submission process and
@@ -101,7 +131,7 @@ If you discover a security vulnerability, please follow our
 
 ## License
 
-This template is open-source software licensed under the
+This package is open-source software licensed under the
 [MIT license][MIT license url]. See [`LICENSE.md`](./LICENSE.md).
 
 [Valkyrja url]: https://valkyrja.io

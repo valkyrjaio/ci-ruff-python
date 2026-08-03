@@ -51,8 +51,8 @@ wheels = [
 ]
 
 [[package]]
-name = "valkyrja-template"
-version = "26.0.1"
+name = "valkyrja-ruff"
+version = "26.0.2"
 source = { editable = "." }
 
 [package.dev-dependencies]

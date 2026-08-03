@@ -1,5 +1,5 @@
 [project]
-name = "valkyrja-template-ci-importlinter"
+name = "valkyrja-ruff-ci-importlinter"
 version = "0.0.0"
 requires-python = ">=3.14"
 dependencies = ["import-linter>=2.13,<3"]
@@ -9,14 +9,14 @@ dependencies = ["import-linter>=2.13,<3"]
 package = false
 
 # import-linter enforces module boundaries. The root poe task sets PYTHONPATH=src
-# so `valkyrja.template` is importable. Add layered/independence contracts here as
+# so `valkyrja.ruff` is importable. Add layered/independence contracts here as
 # the package grows — the analog of PHP's phparkitect Rules.
 [tool.importlinter]
-root_packages = ["valkyrja.template"]
+root_packages = ["valkyrja.ruff"]
 
 # Example contract to copy once there are layers to enforce:
 # [[tool.importlinter.contracts]]
 # name = "Contracts must not import implementations"
 # type = "forbidden"
-# source_modules = ["valkyrja.template.contract"]
-# forbidden_modules = ["valkyrja.template.provider"]
+# source_modules = ["valkyrja.ruff.contract"]
+# forbidden_modules = ["valkyrja.ruff.provider"]
