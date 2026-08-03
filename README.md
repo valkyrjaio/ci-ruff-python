@@ -55,6 +55,7 @@ The command reports a failure when a file needs the header, so a gate can run it
 | `--check`      | report a file that needs the header, and write nothing     |
 | `--identifier` | name the package, instead of reading the repository config |
 | `--root`       | name the repository root                                   |
+| `--print-ruff-config` | print the Ruff `--config` override, and write nothing |
 
 ### What the command does not touch
 
@@ -117,7 +118,7 @@ fixes are provided for 2 years after the initial release.
 ## Contributing
 
 This package is an open-source, community-driven project. Improvements to
-the template itself — refinements to the included CI configuration, uv
+this package itself — refinements to the included CI configuration, uv
 setup, or documentation — are welcome.
 
 See [`CONTRIBUTING.md`][contributing url] for the submission process and
