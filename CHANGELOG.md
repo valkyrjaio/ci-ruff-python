@@ -1,2 +1,12 @@
 # Release Notes for 26.x
-## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/26.0.0...26.x)
+
+## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.0...26.x)
+
+## [v26.0.0](https://github.com/valkyrjaio/ci-ruff-python/compare/26.0.0...v26.0.0) - 2026-08-02
+
+* [Copyright] fix: Name this package in every header by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/ci-ruff-python/pull/1
+* [Workflow] ci: Pin the copyright header check to v26.22.0 by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/ci-ruff-python/pull/2
+* [Copyright] feat: Add the copyright header injector by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/ci-ruff-python/pull/3
+* [Changelog] fix: Record this repository instead of the template by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/ci-ruff-python/pull/4
+* [Release] feat: Publish the package to PyPI on a release by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/ci-ruff-python/pull/5
+* [Dependency] build: Update Python dependencies by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/ci-ruff-python/pull/6
