@@ -37,6 +37,12 @@ class CopyrightHeaderConstant:
     # that sits below other content.
     ANCHOR: Final[str] = "\\A"
 
+    # Every regular expression metacharacter, and nothing else. A space and a number
+    # sign are not on this list: they are special only in verbose mode, which this
+    # pattern never uses, and escaping them hides the package name from a plain text
+    # search. A hyphen is special only inside a character class.
+    METACHARACTERS: Final[str] = "\\.^$*+?{}[]()|"
+
     # The Ruff setting that holds the pattern. `valkyrja-ruff-header` passes it to Ruff as a
     # `--config` override, because TOML cannot join the shared text to a per-repository
     # identifier on its own.

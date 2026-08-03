@@ -122,3 +122,35 @@ def test_get_lines_rejects_the_assembled_header() -> None:
     # Every entry point validates, not only the validator.
     with pytest.raises(RuffInvalidIdentifierException):
         CopyrightHeaderFactory.get_lines(EXPECTED_HEADER)
+
+
+def test_get_notice_regex_holds_the_identifier_as_plain_text() -> None:
+    # `_create-repo.yml` renames a new repository by replacing the package name as
+    # literal text. `re.escape` also escapes a space, which hid the name from that
+    # replacement and left every new repository matching `Project Template`.
+    regex = CopyrightHeaderFactory.get_notice_regex(IDENTIFIER)
+
+    assert f"the {IDENTIFIER} package" in regex
+
+
+def test_get_notice_regex_does_not_escape_a_space_or_a_number_sign() -> None:
+    regex = CopyrightHeaderFactory.get_notice_regex(IDENTIFIER)
+
+    assert "\\ " not in regex
+    assert "\\#" not in regex
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("plain text", "plain text"),
+        ("a.period", "a\\.period"),
+        ("(c)", "\\(c\\)"),
+        ("2016-present", "2016-present"),
+        ("# comment", "# comment"),
+        ("a+b*c?", "a\\+b\\*c\\?"),
+        ("[]{}|^$", "\\[\\]\\{\\}\\|\\^\\$"),
+    ],
+)
+def test_get_escaped_escapes_only_a_metacharacter(text: str, expected: str) -> None:
+    assert CopyrightHeaderFactory.get_escaped(text) == expected

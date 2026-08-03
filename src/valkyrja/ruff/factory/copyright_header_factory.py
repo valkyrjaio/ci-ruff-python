@@ -8,8 +8,6 @@
 
 """Builds the copyright header, and the Ruff pattern that enforces it."""
 
-import re
-
 from valkyrja.ruff.constant.copyright_header_constant import CopyrightHeaderConstant
 from valkyrja.ruff.exception.ruff_invalid_identifier_exception import RuffInvalidIdentifierException
 
@@ -57,11 +55,27 @@ class CopyrightHeaderFactory:
         return "".join(f"{line}\n" for line in CopyrightHeaderFactory.get_lines(identifier))
 
     @staticmethod
+    def get_escaped(text: str) -> str:
+        """Return the text with every regular expression metacharacter escaped.
+
+        Warning: do not use `re.escape` here. It also escapes a space and a number
+        sign, because it targets verbose mode. This pattern never runs in verbose
+        mode, and the extra escapes hide the package name from a plain text search.
+        `_create-repo.yml` renames a new repository by replacing that name as literal
+        text, and it cannot match `the\\ Project\\ Template\\ package`. The new
+        repository then keeps the template's name in the pattern while every file
+        carries its own, and the gate fails on every file.
+        """
+        return "".join(
+            f"\\{character}" if character in CopyrightHeaderConstant.METACHARACTERS else character for character in text
+        )
+
+    @staticmethod
     def get_notice_regex(identifier: str) -> str:
         """Return the anchored pattern that Ruff `CPY001` matches the header with."""
         lines = CopyrightHeaderFactory.get_lines(identifier)
 
-        return CopyrightHeaderConstant.ANCHOR + "\n".join(re.escape(line) for line in lines)
+        return CopyrightHeaderConstant.ANCHOR + "\n".join(CopyrightHeaderFactory.get_escaped(line) for line in lines)
 
     @staticmethod
     def get_toml_string(value: str) -> str:
