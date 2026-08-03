@@ -1,5 +1,5 @@
 [project]
-name = "valkyrja-ruff-ci-importlinter"
+name = "valkyrja-ci-ruff-importlinter"
 version = "0.0.0"
 requires-python = ">=3.14"
 dependencies = ["import-linter>=2.13,<3"]

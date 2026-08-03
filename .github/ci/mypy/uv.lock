@@ -202,7 +202,7 @@ wheels = [
 ]
 
 [[package]]
-name = "valkyrja-ruff-ci-mypy"
+name = "valkyrja-ci-ruff-mypy"
 version = "0.0.0"
 source = { virtual = "." }
 dependencies = [

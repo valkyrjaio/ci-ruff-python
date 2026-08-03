@@ -37,7 +37,7 @@ class CopyrightHeaderConstant:
     # that sits below other content.
     ANCHOR: Final[str] = "\\A"
 
-    # The Ruff setting that holds the pattern. `valkyrja-ruff` passes it to Ruff as a
+    # The Ruff setting that holds the pattern. `valkyrja-ruff-header` passes it to Ruff as a
     # `--config` override, because TOML cannot join the shared text to a per-repository
     # identifier on its own.
     NOTICE_RGX_KEY: Final[str] = "lint.flake8-copyright.notice-rgx"

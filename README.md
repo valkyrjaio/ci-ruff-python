@@ -22,8 +22,8 @@ its own package identifier, which it already declares in
 repository maps every repository to its identifier.
 
 <p>
-    <a href="https://pypi.org/project/valkyrja-ruff/"><img src="https://img.shields.io/pypi/v/valkyrja-ruff.svg" alt="Latest Version on PyPI"></a>
-    <a href="https://pypi.org/project/valkyrja-ruff/"><img src="https://img.shields.io/pypi/pyversions/valkyrja-ruff.svg" alt="Supported Python Version"></a>
+    <a href="https://pypi.org/project/valkyrja-ci-ruff/"><img src="https://img.shields.io/pypi/v/valkyrja-ci-ruff.svg" alt="Latest Version on PyPI"></a>
+    <a href="https://pypi.org/project/valkyrja-ci-ruff/"><img src="https://img.shields.io/pypi/pyversions/valkyrja-ci-ruff.svg" alt="Supported Python Version"></a>
     <a href="https://github.com/valkyrjaio/ci-ruff-python/blob/26.x/LICENSE.md"><img src="https://img.shields.io/github/license/valkyrjaio/ci-ruff-python.svg" alt="License"></a>
     <a href="https://github.com/valkyrjaio/ci-ruff-python/actions/workflows/ci.yml?query=branch%3A26.x"><img src="https://github.com/valkyrjaio/ci-ruff-python/actions/workflows/ci.yml/badge.svg?branch=26.x" alt="CI Status"></a>
 </p>
