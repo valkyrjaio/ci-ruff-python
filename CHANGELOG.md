@@ -1,6 +1,11 @@
 # Release Notes for 26.x
 
-## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.1...26.x)
+## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.2...26.x)
+
+## [v26.0.2](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.1...v26.0.2) - 2026-08-03
+
+* [Copyright] fix: Escape only a regular expression metacharacter by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/ci-ruff-python/pull/8
+* [Workflow] ci: Update .github workflow refs to v26.23.0 by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/ci-ruff-python/pull/9
 
 ## [v26.0.1](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.0...v26.0.1) - 2026-08-02
 
