@@ -46,4 +46,4 @@ explicit-preview-rules = true
 #
 # A bare `#` opens and closes the header. Every language writes the same text, and
 # a line comment spells each delimiter of the block comment as a bare comment mark.
-notice-rgx = "\\A#\n# This file is part of the Valkyrja Ruff package\\.\n#\n# Copyright \\(c\\) 2016-present Melech Mizrachi\n#\n# Released under the MIT License\\. See LICENSE\\.md for details\\.\n#"
+notice-rgx = "\\A\\#\n\\#\\ This\\ file\\ is\\ part\\ of\\ the\\ Valkyrja\\ Ruff\\ package\\.\n\\#\n\\#\\ Copyright\\ \\(c\\)\\ 2016\\-present\\ Melech\\ Mizrachi\n\\#\n\\#\\ Released\\ under\\ the\\ MIT\\ License\\.\\ See\\ LICENSE\\.md\\ for\\ details\\.\n\\#"

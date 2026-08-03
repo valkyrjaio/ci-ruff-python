@@ -19,6 +19,7 @@ from valkyrja.ruff.cli.command.copyright_header_command import (
     get_python_files,
     main,
 )
+from valkyrja.ruff.factory.copyright_header_factory import CopyrightHeaderFactory
 from valkyrja.ruff.factory.identifier_factory import CONFIG_PATH
 
 HEADER = """\
@@ -129,3 +130,27 @@ def test_get_python_files_reads_a_directory_and_a_file(repository: Path) -> None
     found = get_python_files(repository, ["src"])
 
     assert [path.name for path in found] == ["a.py", "b.py"]
+
+
+def test_it_rejects_a_bad_identifier_when_no_file_matches(repository: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    # The loop never runs when nothing matches, so validation cannot live inside it.
+    assert run(repository, "--identifier", "", "does-not-exist") == EXIT_ERROR
+    assert "empty" in capsys.readouterr().out
+
+
+def test_print_ruff_config_emits_the_override(repository: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    assert run(repository, "--print-ruff-config") == EXIT_OK
+
+    out = capsys.readouterr().out
+
+    # `re.escape` escapes a space and a number sign, so the identifier does not
+    # appear verbatim. Compare against the factory instead of against a fragment.
+    assert out.strip() == CopyrightHeaderFactory.get_ruff_config_override("Valkyrja Ruff")
+
+
+def test_print_ruff_config_writes_nothing(repository: Path) -> None:
+    source = repository / "src" / "thing.py"
+    source.write_text("X = 1\n", encoding="utf-8")
+
+    assert run(repository, "--print-ruff-config", "src") == EXIT_OK
+    assert source.read_text(encoding="utf-8") == "X = 1\n"

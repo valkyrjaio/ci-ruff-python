@@ -13,6 +13,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from valkyrja.ruff.exception.ruff_invalid_identifier_exception import RuffInvalidIdentifierException
+from valkyrja.ruff.factory.copyright_header_factory import CopyrightHeaderFactory
 from valkyrja.ruff.factory.identifier_factory import IdentifierFactory
 from valkyrja.ruff.factory.python_source_factory import PythonSourceFactory
 
@@ -39,6 +40,11 @@ def get_parser() -> argparse.ArgumentParser:
         help="the package identifier; read from the copyright header config when absent",
     )
     parser.add_argument("--root", default=".", help="the repository root")
+    parser.add_argument(
+        "--print-ruff-config",
+        action="store_true",
+        help="print the Ruff `--config` override that carries the header pattern, and write nothing",
+    )
 
     return parser
 
@@ -65,23 +71,29 @@ def main(argv: Sequence[str] | None = None) -> int:
     root = Path(arguments.root)
 
     try:
-        identifier = arguments.identifier or IdentifierFactory.get_from_config(root)
+        # Warning: test for `None`, never for a false value. An empty `--identifier`
+        # is a value the caller gave, and `or` would replace it with the config value
+        # instead of reporting it.
+        identifier = IdentifierFactory.get_from_config(root) if arguments.identifier is None else arguments.identifier
+        # Warning: validate before the loop, never inside it. A run that matches no
+        # Python file never enters the loop, so a bad identifier would go unreported
+        # and the command would report success.
+        CopyrightHeaderFactory.validate_identifier(identifier)
     except RuffInvalidIdentifierException as exception:
         print(f"error: {exception}")
 
         return EXIT_ERROR
 
+    if arguments.print_ruff_config:
+        print(CopyrightHeaderFactory.get_ruff_config_override(identifier))
+
+        return EXIT_OK
+
     changed: list[Path] = []
 
     for path in get_python_files(root, arguments.paths):
         source = path.read_text(encoding="utf-8")
-
-        try:
-            rendered = PythonSourceFactory.get_source_with_header(source, identifier)
-        except RuffInvalidIdentifierException as exception:
-            print(f"error: {exception}")
-
-            return EXIT_ERROR
+        rendered = PythonSourceFactory.get_source_with_header(source, identifier)
 
         if rendered == source:
             continue
