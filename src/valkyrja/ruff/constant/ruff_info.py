@@ -9,7 +9,7 @@
 from typing import Final
 
 
-class TemplateInfo:
+class RuffInfo:
     """Package version metadata, updated by the release workflow."""
 
     VERSION: Final[str] = "26.0.2"

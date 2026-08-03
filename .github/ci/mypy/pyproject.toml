@@ -1,8 +1,11 @@
 [project]
-name = "valkyrja-template-ci-mypy"
+name = "valkyrja-ruff-ci-mypy"
 version = "0.0.0"
 requires-python = ">=3.14"
-dependencies = ["mypy>=2.3.0,<3"]
+# mypy checks `src` and `tests`, so it resolves what the tests import. Without
+# pytest here, every `import pytest` is unresolved and every pytest decorator
+# reads as untyped, which `strict` then reports.
+dependencies = ["mypy>=2.3.0,<3", "pytest>=9.1.1,<10"]
 
 [tool.uv]
 # Environment-only project: install the tool, never build this directory.

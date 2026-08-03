@@ -117,7 +117,7 @@ wheels = [
 ]
 
 [[package]]
-name = "valkyrja-template-ci-pytest"
+name = "valkyrja-ruff-ci-pytest"
 version = "0.0.0"
 source = { virtual = "." }
 dependencies = [

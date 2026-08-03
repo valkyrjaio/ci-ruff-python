@@ -105,7 +105,7 @@ wheels = [
 ]
 
 [[package]]
-name = "valkyrja-template-ci-bandit"
+name = "valkyrja-ruff-ci-bandit"
 version = "0.0.0"
 source = { virtual = "." }
 dependencies = [

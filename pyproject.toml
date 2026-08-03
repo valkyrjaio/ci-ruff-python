@@ -1,20 +1,25 @@
 [project]
-name = "valkyrja-template"
+name = "valkyrja-ruff"
 version = "26.0.2"
-description = "A Python package template for the Valkyrja Framework"
+description = "Shared Ruff configuration and the copyright header injector for Valkyrja Python projects"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE.md"]
 authors = [{ name = "Melech Mizrachi", email = "melechmizrachi@gmail.com" }]
-keywords = ["template", "valkyrja"]
+keywords = ["ruff", "lint", "valkyrja"]
 requires-python = ">=3.14"
 # Runtime dependencies belong here once the package needs them, e.g. the
 # framework: dependencies = ["valkyrja>=26"].
 dependencies = []
 
+# Ruff reports a file whose header does not match `notice-rgx`, and it corrects
+# nothing. This command is what corrects it.
+[project.scripts]
+valkyrja-ruff-header = "valkyrja.ruff.cli.command.copyright_header_command:main"
+
 [project.urls]
 Homepage = "https://valkyrja.io"
-Source = "https://github.com/valkyrjaio/project-template-python"
+Source = "https://github.com/valkyrjaio/ci-ruff-python"
 
 [build-system]
 requires = ["hatchling"]
@@ -35,6 +40,9 @@ dev = ["poethepoet>=0.48.0"]
 # `uv run -q` silences uv's own output (venv creation, the harmless inherited
 # VIRTUAL_ENV warning) while passing each tool's output through.
 [tool.poe.tasks]
+# Ruff reports a wrong header and corrects nothing, so this command corrects it.
+copyright-header = "valkyrja-ruff-header"
+copyright-header-check = "valkyrja-ruff-header --check"
 ruff-format = "uv run -q --project .github/ci/ruff ruff format --config .github/ci/ruff/pyproject.toml src tests"
 ruff-format-check = "uv run -q --project .github/ci/ruff ruff format --check --config .github/ci/ruff/pyproject.toml src tests"
 ruff = "uv run -q --project .github/ci/ruff ruff check --config .github/ci/ruff/pyproject.toml src tests"
@@ -42,7 +50,7 @@ ruff-fix = "uv run -q --project .github/ci/ruff ruff check --fix --config .githu
 mypy = "uv run -q --project .github/ci/mypy mypy --config-file .github/ci/mypy/pyproject.toml src tests"
 bandit = "uv run -q --project .github/ci/bandit bandit -c .github/ci/bandit/pyproject.toml -r src"
 pytest = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml tests"
-pytest-coverage = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml --cov=valkyrja.template --cov-branch --cov-report=term-missing --cov-fail-under=100 tests"
+pytest-coverage = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml --cov=valkyrja.ruff --cov-branch --cov-report=term-missing --cov-fail-under=100 tests"
 
 [tool.poe.tasks.import-linter]
 cmd = "uv run -q --project .github/ci/importlinter lint-imports --config .github/ci/importlinter/pyproject.toml"
@@ -51,6 +59,7 @@ env = { PYTHONPATH = "src" }
 [tool.poe.tasks.ci]
 help = "Run the full CI gate (see architecture/python/AGENTS.md)"
 sequence = [
+    { ref = "copyright-header-check" },
     { ref = "ruff-format-check" },
     { ref = "ruff" },
     { ref = "mypy" },

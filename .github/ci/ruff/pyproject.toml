@@ -1,5 +1,5 @@
 [project]
-name = "valkyrja-template-ci-ruff"
+name = "valkyrja-ruff-ci-ruff"
 version = "0.0.0"
 requires-python = ">=3.14"
 dependencies = ["ruff>=0.16.1,<0.17"]
@@ -23,6 +23,13 @@ indent-style = "space"
 # runs only when it is selected by its own code, so enabling this one does not
 # also enable every preview rule behind the other prefixes.
 select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM", "RUF", "CPY001"]
+
+# `N818` wants every exception to end in `Error`. Valkyrja names an exception
+# `*Exception` in every language it targets, so that one name reads the same in
+# PHP, Java, Go, Python, and TypeScript. THROWABLES.md maps the name onto each
+# native base instead: `ValkyrjaInvalidArgumentException` extends `ValueError`.
+# The name parity is the convention, so this rule is off.
+ignore = ["N818"]
 preview = true
 explicit-preview-rules = true
 

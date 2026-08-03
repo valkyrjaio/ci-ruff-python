@@ -36,5 +36,5 @@ jobs:
           {"name": "import-linter",  "directory": ".github/ci/importlinter"},
           {"name": "pytest",         "directory": ".github/ci/pytest"}
         ]
-      info-file-path: src/valkyrja/template/constant/template_info.py
-      info-file-name: TemplateInfo
+      info-file-path: src/valkyrja/ruff/constant/ruff_info.py
+      info-file-name: RuffInfo
