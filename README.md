@@ -50,12 +50,12 @@ The command reports a failure when a file needs the header, so a gate can run it
 
 ### Options
 
-| Option         | Effect                                                     |
-| -------------- | ---------------------------------------------------------- |
-| `--check`      | report a file that needs the header, and write nothing     |
-| `--identifier` | name the package, instead of reading the repository config |
-| `--root`       | name the repository root                                   |
-| `--print-ruff-config` | print the Ruff `--config` override, and write nothing |
+| Option                | Effect                                                     |
+| --------------------- | ---------------------------------------------------------- |
+| `--check`             | report a file that needs the header, and write nothing     |
+| `--identifier`        | name the package, instead of reading the repository config |
+| `--root`              | name the repository root                                   |
+| `--print-ruff-config` | print the Ruff `--config` override, and write nothing      |
 
 ### What the command does not touch
 
