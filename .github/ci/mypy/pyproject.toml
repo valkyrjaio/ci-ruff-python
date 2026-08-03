@@ -1,5 +1,5 @@
 [project]
-name = "valkyrja-ruff-ci-mypy"
+name = "valkyrja-ci-ruff-mypy"
 version = "0.0.0"
 requires-python = ">=3.14"
 # mypy checks `src` and `tests`, so it resolves what the tests import. Without

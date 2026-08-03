@@ -28,7 +28,7 @@ wheels = [
 ]
 
 [[package]]
-name = "valkyrja-ruff-ci-ruff"
+name = "valkyrja-ci-ruff-ruff"
 version = "0.0.0"
 source = { virtual = "." }
 dependencies = [

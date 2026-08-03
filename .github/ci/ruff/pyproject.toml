@@ -1,5 +1,5 @@
 [project]
-name = "valkyrja-ruff-ci-ruff"
+name = "valkyrja-ci-ruff-ruff"
 version = "0.0.0"
 requires-python = ">=3.14"
 dependencies = ["ruff>=0.16.1,<0.17"]

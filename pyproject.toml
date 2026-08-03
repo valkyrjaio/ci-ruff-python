@@ -1,5 +1,5 @@
 [project]
-name = "valkyrja-ruff"
+name = "valkyrja-ci-ruff"
 version = "26.0.0"
 description = "Shared Ruff configuration and the copyright header injector for Valkyrja Python projects"
 readme = "README.md"

@@ -1,5 +1,5 @@
 [project]
-name = "valkyrja-ruff-ci-pytest"
+name = "valkyrja-ci-ruff-pytest"
 version = "0.0.0"
 requires-python = ">=3.14"
 dependencies = ["pytest>=9.1.1,<10", "pytest-cov>=7.1.0,<8", "coverage>=7.15.3,<8"]
