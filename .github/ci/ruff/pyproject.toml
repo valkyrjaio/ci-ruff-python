@@ -32,4 +32,11 @@ explicit-preview-rules = true
 # text around them. A file that names the wrong package, or that keeps an older
 # header body, passes that pattern and fails this one. The header text comes from
 # COPYRIGHT_HEADER.md in the .github repo.
-notice-rgx = "# This file is part of the Project Template package\\.\n#\n# Copyright \\(c\\) 2016-present Melech Mizrachi\n#\n# Released under the MIT License\\. See LICENSE\\.md for details\\."
+#
+# `\A` anchors the header to the first byte of the file. Ruff searches the first
+# 4096 characters for this pattern, so an unanchored pattern also accepts a header
+# that sits below other content.
+#
+# A bare `#` opens and closes the header. Every language writes the same text, and
+# a line comment spells each delimiter of the block comment as a bare comment mark.
+notice-rgx = "\\A#\n# This file is part of the Valkyrja Ruff package\\.\n#\n# Copyright \\(c\\) 2016-present Melech Mizrachi\n#\n# Released under the MIT License\\. See LICENSE\\.md for details\\.\n#"
