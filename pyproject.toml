@@ -50,7 +50,7 @@ ruff-fix = "uv run -q --project .github/ci/ruff ruff check --fix --config .githu
 mypy = "uv run -q --project .github/ci/mypy mypy --config-file .github/ci/mypy/pyproject.toml src tests"
 bandit = "uv run -q --project .github/ci/bandit bandit -c .github/ci/bandit/pyproject.toml -r src"
 pytest = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml tests"
-pytest-coverage = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml --cov=valkyrja.ruff --cov-branch --cov-report=term-missing --cov-fail-under=100 tests"
+pytest-coverage = "uv run -q --project .github/ci/pytest pytest -c .github/ci/pytest/pyproject.toml --cov-config .github/ci/pytest/pyproject.toml --cov=src/valkyrja/ruff --cov-branch --cov-report=term-missing --cov-fail-under=100 tests"
 
 [tool.poe.tasks.import-linter]
 cmd = "uv run -q --project .github/ci/importlinter lint-imports --config .github/ci/importlinter/pyproject.toml"
