@@ -25,6 +25,10 @@ EXCLUDED=(
     '*.gitignore'
     '*.python-version'
 
+    # The PEP 561 marker. It is empty by specification: its presence is the whole
+    # signal, and any content would be a syntax error to a type checker reading it.
+    '*py.typed'
+
     # An empty placeholder that keeps an empty directory in git. The file holds
     # no content at all.
     '*.gitkeep'
