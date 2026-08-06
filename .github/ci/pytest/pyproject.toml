@@ -9,10 +9,9 @@ dependencies = ["pytest>=9.1.1,<10", "pytest-cov>=7.1.0,<8", "coverage>=7.15.3,<
 package = false
 
 # Paths are relative to this config file's directory (the pytest rootdir when
-# invoked with `-c`), hence the `../../../` back to the repo root. Coverage does
-# not share that base. Coverage resolves its own paths from the working
-# directory, so `[tool.coverage.run] source` below takes a repo-root-relative
-# path.
+# invoked with `-c`), hence the `../../../` back to the repo root. Coverage
+# resolves from the working directory instead, so `source` below is
+# repo-root-relative.
 [tool.pytest.ini_options]
 testpaths = ["../../../tests"]
 pythonpath = ["../../../src"]
@@ -21,19 +20,11 @@ addopts = "--import-mode=importlib --strict-markers"
 
 [tool.coverage.run]
 branch = true
-# Warning: name the source by path, never by package. Coverage resolves a package
-# name through the import system. Coverage cannot resolve a PEP 420 namespace
-# package. A directory that loses its `__init__.py` becomes a namespace package.
-# Coverage then measures only the modules that ran. A component with no test is
-# absent from the report. The total then reads 100%.
+# Path, not package: coverage cannot walk a PEP 420 namespace package.
 source = ["src/valkyrja/ruff"]
 
 [tool.coverage.report]
-# Warning: coverage walks a source directory to find an unimported module.
-# Coverage stops at each directory that holds no `__init__.py`. PEP 420 makes
-# such a directory legal. A component in that directory is absent from the
-# report. The total then reads 100%. This option makes coverage walk the
-# directory.
+# Also walk directories that have no `__init__.py`.
 include_namespace_packages = true
 show_missing = true
 fail_under = 100
