@@ -20,11 +20,13 @@ addopts = "--import-mode=importlib --strict-markers"
 
 [tool.coverage.run]
 branch = true
-# Path, not package: coverage cannot walk a PEP 420 namespace package.
+# Path, not package: coverage cannot walk a PEP 420 namespace package, so an
+# untested module vanishes from the report and the total still reads 100%.
 source = ["src/valkyrja/ruff"]
 
 [tool.coverage.report]
-# Also walk directories that have no `__init__.py`.
+# Also walk directories with no `__init__.py`; coverage skips them otherwise,
+# hiding an untested component behind a 100% total.
 include_namespace_packages = true
 show_missing = true
 fail_under = 100
