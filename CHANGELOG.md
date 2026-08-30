@@ -1,6 +1,10 @@
 # Release Notes for 26.x
 
-## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.7...26.x)
+## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.8...26.x)
+
+## [v26.0.8](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.7...v26.0.8) - 2026-08-30
+
+* [Workflow] fix: Publish only when the release happened by [@MelechMizrachi](https://github.com/MelechMizrachi) in https://github.com/valkyrjaio/ci-ruff-python/pull/42
 
 ## [v26.0.7](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.6...v26.0.7) - 2026-08-29
 
