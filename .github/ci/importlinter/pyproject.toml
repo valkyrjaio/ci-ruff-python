@@ -2,7 +2,7 @@
 name = "valkyrja-ci-ruff-importlinter"
 version = "0.0.0"
 requires-python = ">=3.14"
-dependencies = ["import-linter>=2.14,<3"]
+dependencies = ["import-linter>=2.15,<3"]
 
 [tool.uv]
 # Environment-only project: install the tool, never build this directory.
