@@ -1,6 +1,10 @@
 # Release Notes for 26.x
 
-## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.13...26.x)
+## [Unreleased](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.14...26.x)
+
+## [v26.0.14](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.13...v26.0.14) - 2026-09-10
+
+* [Dependency] build: Update Python dependencies by [@valkyrja-volundr](https://github.com/valkyrja-volundr)[bot] in https://github.com/valkyrjaio/ci-ruff-python/pull/50
 
 ## [v26.0.13](https://github.com/valkyrjaio/ci-ruff-python/compare/v26.0.12...v26.0.13) - 2026-09-09
 
