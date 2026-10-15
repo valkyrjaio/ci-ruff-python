@@ -42,7 +42,7 @@ wheels = [
 
 [[package]]
 name = "valkyrja-ci-ruff"
-version = "26.0.26"
+version = "26.0.27"
 source = { editable = "." }
 
 [package.dev-dependencies]
