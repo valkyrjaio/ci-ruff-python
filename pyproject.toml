@@ -35,7 +35,7 @@ packages = ["src/valkyrja"]
 # pyproject.toml + uv.lock; every task runs that tool from its isolated
 # environment (`uv run -q --project`) against the repo-root `src`/`tests`.
 [dependency-groups]
-dev = ["poethepoet>=0.48.0"]
+dev = ["poethepoet>=0.49.0"]
 
 # `uv run -q` silences uv's own output (venv creation, the harmless inherited
 # VIRTUAL_ENV warning) while passing each tool's output through.
