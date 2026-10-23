@@ -12,5 +12,5 @@ from typing import Final
 class RuffInfo:
     """Package version metadata, updated by the release workflow."""
 
-    VERSION: Final[str] = "26.0.28"
-    VERSION_BUILD_DATE_TIME: Final[str] = "October 17 2026 07:00:29 MST"
+    VERSION: Final[str] = "26.0.29"
+    VERSION_BUILD_DATE_TIME: Final[str] = "October 23 2026 08:35:00 MST"
