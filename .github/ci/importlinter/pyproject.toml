@@ -13,6 +13,7 @@ package = false
 [tool.importlinter]
 root_packages = ["valkyrja.ruff"]
 
+# The command uses the factories, and a factory uses the constants and the exceptions.
 [[tool.importlinter.contracts]]
 name = "Each layer imports only the layers below it"
 type = "layers"
