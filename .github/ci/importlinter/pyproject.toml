@@ -9,14 +9,17 @@ dependencies = ["import-linter>=2.15,<3"]
 package = false
 
 # import-linter enforces module boundaries. The root poe task sets PYTHONPATH=src
-# so `valkyrja.ruff` is importable. Add layered/independence contracts here as
-# the package grows — the analog of PHP's phparkitect Rules.
+# so `valkyrja.ruff` is importable.
 [tool.importlinter]
 root_packages = ["valkyrja.ruff"]
 
-# Example contract to copy once there are layers to enforce:
-# [[tool.importlinter.contracts]]
-# name = "Contracts must not import implementations"
-# type = "forbidden"
-# source_modules = ["valkyrja.ruff.contract"]
-# forbidden_modules = ["valkyrja.ruff.provider"]
+# The command uses the factories, and a factory uses the constants and the exceptions.
+[[tool.importlinter.contracts]]
+name = "Each layer imports only the layers below it"
+type = "layers"
+containers = ["valkyrja.ruff"]
+layers = [
+    "cli",
+    "factory",
+    "constant : exception",
+]
